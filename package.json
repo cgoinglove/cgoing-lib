@@ -1,0 +1,33 @@
+{
+  "name": "cgoing-lib",
+  "version": "1.0.0",
+  "description": "다양한 솔루션을 제공합니다.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@8.12.0+sha1.7134f9b8d0b70bc7a1954f47af52123cd2b2acce",
+  "devDependencies": {
+    "axios": "^1.6.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "typescript": "latest",
+    "vite-tsconfig-paths": "latest",
+    "vitest": "latest",
+    "@vitest/ui": "latest",
+    "vite": "latest"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --report-unused-disable-directives --max-warnings 0"
+    ]
+  }
+}

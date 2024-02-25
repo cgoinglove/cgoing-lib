@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+tsc --noEmit --project tsconfig.json
+
+npm run lint-staged
+
