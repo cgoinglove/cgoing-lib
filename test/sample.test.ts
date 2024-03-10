@@ -1,8 +1,16 @@
 import { increment } from '🛠️';
 
-test('sample test', () => {
-  console.log(`Hello Cgoing!`);
+test('Symbol-Test', () => {
+  const symbol = Symbol('cgoing');
 
-  expect(increment()).toBe(0);
-  expect(increment()).toBe(1);
+  const Row = {
+    name: 'Choi SungKeun',
+    age: 31,
+    [symbol]: 'is Symbol Value',
+  };
+
+  console.log(Row);
+
+  expect(symbol).toBe(symbol);
+  expect(Object.keys(Row).length).toBe(2);
 });

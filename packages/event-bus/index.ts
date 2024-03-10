@@ -1,12 +1,22 @@
 export type EventsMap = Record<string, any>;
 export type DefaultEventsMap = Record<string, void>;
 
+/**
+ * Emitter
+ */
+
 export class EventBus<EventMap extends EventsMap = DefaultEventsMap> {
-  private events = new Map<keyof EventMap, Array<(payload: any, stopEvent: () => void) => void | Promise<void>>>();
+  private events = new Map<
+    keyof EventMap,
+    Array<(payload: any, stopEvent: () => void) => void | Promise<void>>
+  >();
 
   on<EventName extends keyof EventMap>(
     eventName: EventName,
-    listener: (payload: EventMap[EventName], stopEvent: () => void) => void | Promise<void>
+    listener: (
+      payload: EventMap[EventName],
+      stopEvent: () => void,
+    ) => void | Promise<void>,
   ) {
     if (this.events.has(eventName)) {
       const listeners = this.events.get(eventName)!;
@@ -16,12 +26,15 @@ export class EventBus<EventMap extends EventsMap = DefaultEventsMap> {
     return () => this.off(eventName, listener);
   }
 
-  off<EventName extends keyof EventMap>(eventName: EventName, listener?: (...args: any[]) => any) {
+  off<EventName extends keyof EventMap>(
+    eventName: EventName,
+    listener?: (...args: any[]) => any,
+  ) {
     if (listener) {
       const currentEvents = this.events.get(eventName) || [];
       this.events.set(
         eventName,
-        currentEvents.filter((fn) => fn !== listener)
+        currentEvents.filter(fn => fn !== listener),
       );
     } else {
       this.events.delete(eventName);
@@ -30,7 +43,10 @@ export class EventBus<EventMap extends EventsMap = DefaultEventsMap> {
 
   once<EventName extends keyof EventMap>(
     eventName: EventName,
-    listener: (payload: EventMap[EventName], stopEvent: () => void) => void | Promise<void>
+    listener: (
+      payload: EventMap[EventName],
+      stopEvent: () => void,
+    ) => void | Promise<void>,
   ) {
     const wrapper = (args: EventMap[EventName], stopEvent: () => void) => {
       listener(args, stopEvent);
@@ -40,7 +56,9 @@ export class EventBus<EventMap extends EventsMap = DefaultEventsMap> {
   }
   async emit<EventName extends keyof EventMap>(
     eventName: EventName,
-    ...params: EventMap[EventName] extends void | undefined ? [params?: any] : [EventMap[EventName]]
+    ...params: EventMap[EventName] extends void | undefined
+      ? [params?: any]
+      : [EventMap[EventName]]
   ) {
     const currentEvents = [...(this.events.get(eventName) || [])].reverse();
     for (let i = 0; i < currentEvents.length; i++) {
