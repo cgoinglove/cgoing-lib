@@ -1,8 +1,11 @@
-export const increment = (
-  (index = 0) =>
-  () =>
-    index++
-)();
+export const createIncrement = () =>
+  (
+    (index = 0) =>
+    () =>
+      index++
+  )();
+
+export const increment = createIncrement();
 
 export const isString = (value: any): value is string =>
   typeof value === 'string';
@@ -47,14 +50,14 @@ export const infinityArray = <T>(arr: T[], startIndex: number = 0) => {
 
 export const arrayToObject = <T extends Record<string, any>>(
   arr: T[],
-  getKey: (item: T) => string,
+  getKey: (item: T) => string
 ): Record<string, T> =>
   arr.reduce(
     (prev, item) =>
       Object.assign(prev, {
-        [getKey(item)]: item,
+        [getKey(item)]: item
       }),
-    {},
+    {}
   );
 
 export const shakeArray = <T>(arr: T[]) => {
@@ -76,14 +79,17 @@ export const deduplicate = <T>(arr: T[], getKey: (item: T) => string): T[] => {
 };
 
 export const groupBy = <T>(arr: T[], getter: keyof T | ((item: T) => string)) =>
-  arr.reduce((prev, item) => {
-    const key: string =
-      getter instanceof Function ? getter(item) : (item[getter] as string);
+  arr.reduce(
+    (prev, item) => {
+      const key: string =
+        getter instanceof Function ? getter(item) : (item[getter] as string);
 
-    if (!prev[key]) prev[key] = [];
-    prev[key].push(item);
-    return prev;
-  }, {} as Record<string, T[]>);
+      if (!prev[key]) prev[key] = [];
+      prev[key].push(item);
+      return prev;
+    },
+    {} as Record<string, T[]>
+  );
 
 export const noop = () => {};
 

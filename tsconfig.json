@@ -19,6 +19,6 @@
       "📦/*": ["./packages/*"]
     }
   },
-  "include": ["util", "packages", "test","type.d.ts"],
+  "include": ["util", "packages", "test", "type.d.ts"],
   "exclude": ["node_modules"]
 }
