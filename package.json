@@ -7,7 +7,7 @@
     "prepare": "husky install",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "lint-staged": "lint-staged",
-    "format": "prettier --write",
+    "format": "prettier --write ./**/*.ts",
     "type:check": "tsc --noEmit",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -31,14 +31,6 @@
     "vite": "latest",
     "vite-tsconfig-paths": "latest",
     "vitest": "latest"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": true,
-    "useTabs": false,
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "trailingComma": "none"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
